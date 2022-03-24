@@ -135,6 +135,11 @@ int main(int argc, char* argv[]) {
         index %= lines;
     }
 
+    // When file is smaller than -n (or 10)
+    if (lines_read < lines) {
+        index = 0;
+    }
+
     // Print content of cyclic buffer (max last n lines)
     for (size_t i = 0; i < lines && i < lines_read; i++) {
         printf("%s", buf[(index + i) % lines]);
