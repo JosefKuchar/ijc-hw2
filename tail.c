@@ -51,7 +51,7 @@ bool check_file_stream(FILE* stream) {
 bool parse_line_count(char* arg, size_t* lines) {
     char* end;
     long long count = strtoll(arg, &end, 10);
-    if (end == arg || *end != '\0' || count < 0LL) {
+    if (end == arg || *end != '\0' || arg[0] == '+' || count < 0LL) {
         fprintf(stderr, "Invalid line count\n");
         return false;
     }
@@ -110,6 +110,11 @@ int main(int argc, char* argv[]) {
     FILE* stream = NULL;
     if (!arg_parse(argc, argv, &stream, &lines)) {
         return EXIT_FAILURE;
+    }
+
+    if (lines == 0) {
+        fclose(stream);
+        return EXIT_SUCCESS;
     }
 
     // Construct cyclic buffer
