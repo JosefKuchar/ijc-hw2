@@ -49,8 +49,9 @@ bool check_file_stream(FILE* stream) {
  * @param lines Parsed line count
  */
 bool parse_line_count(char* arg, size_t* lines) {
-    long long count = strtoll(arg, NULL, 10);
-    if (count < 0LL) {
+    char* end;
+    long long count = strtoll(arg, &end, 10);
+    if (end == arg || *end != '\0' || count < 0LL) {
         fprintf(stderr, "Invalid line count\n");
         return false;
     }
