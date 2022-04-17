@@ -18,13 +18,31 @@ void htab_resize(htab_t* t, size_t newn) {
     for (size_t i = 0; i < t->arr_size; i++) {
         struct htab_item* item = t->arr_ptr[i];
         while (item != NULL) {
+            // Get reference to next item
             struct htab_item* next = item->next;
-            size_t index = htab_hash_function(item->key) % newn;
-            // new_arr[index]
 
+            // Reset item's next pointer
+            item->next = NULL;
+
+            // Find new bucket
+            size_t index = htab_hash_function(item->pair.key) % newn;
+
+            struct htab_item* current = new_arr[index];
+
+            // Add to head
+            if (current == NULL) {
+                new_arr[index] = item;
+            } else {
+                // Add to tail
+                while (current->next != NULL) {
+                    current = current->next;
+                }
+                current->next = item;
+            }
+
+            // Update pointer to next item
             item = next;
         }
-        t->arr_ptr[i] = NULL;
     }
 
     // Free old array

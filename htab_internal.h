@@ -3,6 +3,9 @@
 
 #include "htab.h"
 
+#define AVG_LEN_MIN 2
+#define AVG_LEN_MAX 3
+
 struct htab {
     size_t size;
     size_t arr_size;
@@ -10,8 +13,7 @@ struct htab {
 };
 
 struct htab_item {
-    htab_key_t key;
-    htab_value_t value;
+    struct htab_pair pair;
     struct htab_item* next;
 };
 

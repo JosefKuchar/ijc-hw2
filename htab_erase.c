@@ -1,24 +1,44 @@
 #include <stdlib.h>
+#include <string.h>
 #include "htab.h"
 #include "htab_internal.h"
 
 bool htab_erase(htab_t* t, htab_key_t key) {
+    // Find item bucket
     size_t index = htab_hash_function(key) % t->arr_size;
     struct htab_item* item = t->arr_ptr[index];
     struct htab_item* prev = NULL;
+
+    // Find item
     while (item != NULL) {
-        if (item->key == key) {
+        // Found the item
+        if (strcmp(item->pair.key, key) == 0) {
+            // If item is first then update head
             if (prev == NULL) {
                 t->arr_ptr[index] = item->next;
             } else {
                 prev->next = item->next;
             }
-            free((char*)item->key);
+
+            // Free item
+            free((char*)item->pair.key);
             free(item);
+
+            // Update size
+            t->size--;
+
             return true;
         }
+        // Update pointers
         prev = item;
         item = item->next;
     }
+
+    // Update hash table size
+    if (htab_size(t) / htab_bucket_count(t) < AVG_LEN_MIN) {
+        htab_resize(t, htab_bucket_count(t) / 2);
+    }
+
+    // Item not found
     return false;
 }

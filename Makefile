@@ -1,6 +1,7 @@
 # C
 CC = gcc
-CFLAGS = -g -O2 -fPIC -std=c11 -pedantic -Wall -Wextra
+CFLAGS_N = -g -O2 -std=c11 -pedantic -Wall -Wextra
+CFLAGS = $(CFLAGS_N) -fPIC
 
 # C++
 CXX = g++
@@ -8,17 +9,19 @@ CXXFLAGS = -g -O2 -std=c++17 -pedantic -Wall
 
 HTAB_OBJS = htab_bucket_count.o htab_clear.o htab_erase.o htab_find.o htab_for_each.o htab_free.o htab_hash_function.o htab_init.o htab_lookup_add.o htab_resize.o htab_size.o
 
-all: wordcount wordcount-dynamic libhtab.a libhtab.so
+all: tail wordcount wordcount-dynamic
 
 wordcountcc: wordcount-.cc
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 tail: tail.c
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS_N) $^ -o $@
 
-wordcount:
+wordcount: wordcount.o io.o libhtab.a
+	$(CC) $(CFLAGS_N) $^ -o $@
 
-wordcount-dynamic:
+wordcount-dynamic: wordcount.o io.o libhtab.so
+	$(CC) $(CFLAGS_N) $^ -o $@
 
 libhtab.a: $(HTAB_OBJS)
 	ar rcs $@ $^
@@ -37,6 +40,7 @@ htab_init.o: htab_init.c htab.h htab_internal.h
 htab_lookup_add.o: htab_lookup_add.c htab.h htab_internal.h
 htab_resize.o: htab_resize.c htab.h htab_internal.h
 htab_size.o: htab_size.c htab.h htab_internal.h
+io.o: io.c
 
 clean:
 	rm -f *.o *.out *.zip tail wordcount wordcount-dynamic libhtab.a libhtab.so wordcountcc
