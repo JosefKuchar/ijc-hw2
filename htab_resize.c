@@ -3,6 +3,10 @@
 #include "htab_internal.h"
 
 void htab_resize(htab_t* t, size_t newn) {
+    if (t == NULL) {
+        return;
+    }
+
     // Allocate new array
     struct htab_item** new_arr = malloc(newn * sizeof(struct htab_item*));
     if (new_arr == NULL) {

@@ -7,4 +7,10 @@ wordcount-dynamic
 libhtab.a
 libhtab.so
 wordcountcc
+test
 *.txt
+alloc_replace.c
+hash_tab_tests.c
+tail_tests.c
+test.c
+test_mallocs.sh

@@ -3,6 +3,10 @@
 #include "htab_internal.h"
 
 void htab_free(htab_t* t) {
+    if (t == NULL) {
+        return;
+    }
+
     // Clear the table
     htab_clear(t);
 

@@ -4,6 +4,10 @@
 #include "htab_internal.h"
 
 bool htab_erase(htab_t* t, htab_key_t key) {
+    if (t == NULL || key == NULL) {
+        return false;
+    }
+
     // Find item bucket
     size_t index = htab_hash_function(key) % t->arr_size;
     struct htab_item* item = t->arr_ptr[index];

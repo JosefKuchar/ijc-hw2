@@ -3,6 +3,10 @@
 #include "htab_internal.h"
 
 void htab_clear(htab_t* t) {
+    if (t == NULL) {
+        return;
+    }
+
     // Iterate over all buckets
     for (size_t i = 0; i < t->arr_size; i++) {
         struct htab_item* item = t->arr_ptr[i];

@@ -4,6 +4,10 @@
 #include "htab_internal.h"
 
 htab_pair_t* htab_lookup_add(htab_t* t, htab_key_t key) {
+    if (t == NULL || key == NULL) {
+        return NULL;
+    }
+
     // Look if pair already exists
     htab_pair_t* pair = htab_find(t, key);
 
