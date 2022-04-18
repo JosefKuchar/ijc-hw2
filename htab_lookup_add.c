@@ -1,5 +1,11 @@
+// htab_lookup_add.c
+// Řešení IJC-DU2, příklad 2), 22.3.2022
+// Autor: Josef Kuchař, FIT
+// Přeloženo: gcc 9.3.0
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "htab.h"
 #include "htab_internal.h"
 
@@ -13,7 +19,6 @@ htab_pair_t* htab_lookup_add(htab_t* t, htab_key_t key) {
 
     // Return existing pair if found
     if (pair != NULL) {
-        free((char*)key);
         return pair;
     }
 
@@ -25,7 +30,12 @@ htab_pair_t* htab_lookup_add(htab_t* t, htab_key_t key) {
 
     // Initialize item
     item->next = NULL;
-    item->pair.key = key;
+    item->pair.key = malloc(strlen(key) + 1);
+    if (item->pair.key == NULL) {
+        free(item);
+        return NULL;
+    }
+    strcpy((char*)item->pair.key, key);
     item->pair.value = 0;
 
     // Add to list

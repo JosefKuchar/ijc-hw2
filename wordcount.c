@@ -1,3 +1,8 @@
+// wordcount.c
+// Řešení IJC-DU2, příklad 2), 22.3.2022
+// Autor: Josef Kuchař, FIT
+// Přeloženo: gcc 9.3.0
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "htab.h"
@@ -35,25 +40,16 @@ int main() {
     // Read words from stdin
     int length = 0;
     while (length != EOF) {
-        // Allocate memory for one word
-        htab_key_t key = malloc(MAX_WORD_LENGTH * sizeof(htab_key_t));
-        // Check alloc
-        if (key == NULL) {
-            fprintf(stderr, "Couldn't allocate memory for word\n");
-            htab_free(t);
-            return EXIT_FAILURE;
-        }
+        char key[MAX_WORD_LENGTH] = {0};
         // Read one word
-        length = read_word((char*)key, MAX_WORD_LENGTH, stdin);
+        length = read_word(key, MAX_WORD_LENGTH, stdin);
         if (length == EOF) {
-            free((char*)key);
             break;
         }
         // Insert word into hash table
         htab_pair_t* pair = htab_lookup_add(t, key);
         if (pair == NULL) {
             fprintf(stderr, "Couldn't insert word into hash table\n");
-            free((char*)key);
             htab_free(t);
             return EXIT_FAILURE;
         }

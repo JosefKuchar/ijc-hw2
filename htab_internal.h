@@ -1,3 +1,8 @@
+// htab_internal.h
+// Řešení IJC-DU2, příklad 2), 22.3.2022
+// Autor: Josef Kuchař, FIT
+// Přeloženo: gcc 9.3.0
+
 #ifndef HTAB_INTERNAL_INCLUDED
 #define HTAB_INTERNAL_INCLUDED
 

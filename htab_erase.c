@@ -1,3 +1,8 @@
+// htab_erase.c
+// Řešení IJC-DU2, příklad 2), 22.3.2022
+// Autor: Josef Kuchař, FIT
+// Přeloženo: gcc 9.3.0
+
 #include <stdlib.h>
 #include <string.h>
 #include "htab.h"
