@@ -1,5 +1,5 @@
 // tail.c
-// Řešení IJC-DU2, příklad 1), 22.3.2022
+// Řešení IJC-DU2, příklad 1), 18.4.2022
 // Autor: Josef Kuchař, FIT
 // Přeloženo: gcc 9.3.0
 
