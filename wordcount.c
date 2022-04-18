@@ -3,10 +3,18 @@
 // Autor: Josef Kuchař, FIT
 // Přeloženo: gcc 9.3.0
 
-// Hodnoty byly zvoleny na základě vyzkoušení pomocí vlastního scriptu
-// Tyto hodnoty jdou změnit při překladu (-DHTAB_SIZE=xxx ...)
+// Hodnoty byly zvoleny na základě vyzkoušení rozsahu pomocí vlastního scriptu.
+// Tyto hodnoty jdou změnit při překladu (-DHTAB_SIZE=xxx ...).
+// Velikost HTAB_SIZE tolik neovlivňuje rychlost, důležité je aby se jednalo o
+// prvočíslo. Zvolená hodnota vychází z počtu anglických slov v běžné knize.
+// Hodnota AVG_LEN_MAX byla zjištěna pomocí scriptu při HTAB_SIZE = 30011,
+// na sadě ze zadání "seq 1000000 2000000|shuf".
+// V programu není použito htab_erase, tudíž hodnota AVG_LEN_MIN byla zjištěna
+// odhadem, důležité je, aby AVG_LEN_MIN * 2 < AVG_LEN_MAX, aby nevznikla oscilace
+// při opětovném přidávání a odebírání prvků.
+
 #ifndef HTAB_SIZE
-#define HTAB_SIZE 4
+#define HTAB_SIZE 30011
 #endif  // HTAB_SIZE
 
 #ifndef AVG_LEN_MIN
@@ -14,7 +22,7 @@
 #endif  // AVG_LEN_MIN
 
 #ifndef AVG_LEN_MAX
-#define AVG_LEN_MAX 2.0
+#define AVG_LEN_MAX 1.4
 #endif  // AVG_LEN_MAX
 
 #include <stdio.h>

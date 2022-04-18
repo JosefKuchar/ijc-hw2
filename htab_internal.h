@@ -8,6 +8,7 @@
 
 #include "htab.h"
 
+// Fallback values
 #ifndef AVG_LEN_MIN
 #define AVG_LEN_MIN 0.5
 #endif  // AVG_LEN_MIN

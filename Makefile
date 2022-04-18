@@ -25,7 +25,7 @@ tail: tail.c
 	$(CC) $(CFLAGS_N) $^ -o $@
 
 wordcount: wordcount.o io.o libhtab.a
-	$(CC) $(CFLAGS_N) $^ -o $@
+	$(CC) $(CFLAGS_N) -static $^ -o $@
 
 wordcount-dynamic: wordcount.o io.o libhtab.so
 	$(CC) $(CFLAGS_N) $^ -o $@
