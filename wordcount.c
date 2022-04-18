@@ -3,13 +3,26 @@
 // Autor: Josef Kuchař, FIT
 // Přeloženo: gcc 9.3.0
 
+// Hodnoty byly zvoleny na základě vyzkoušení pomocí vlastního scriptu
+// Tyto hodnoty jdou změnit při překladu (-DHTAB_SIZE=xxx ...)
+#ifndef HTAB_SIZE
+#define HTAB_SIZE 4
+#endif  // HTAB_SIZE
+
+#ifndef AVG_LEN_MIN
+#define AVG_LEN_MIN 0.5
+#endif  // AVG_LEN_MIN
+
+#ifndef AVG_LEN_MAX
+#define AVG_LEN_MAX 2.0
+#endif  // AVG_LEN_MAX
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "htab.h"
 #include "io.h"
 
-#define HTAB_SIZE 4
-#define MAX_WORD_LENGTH 128
+#define MAX_WORD_LENGTH 128  // 127 + \0
 
 // Custom hashing function
 #ifdef HASHTEST

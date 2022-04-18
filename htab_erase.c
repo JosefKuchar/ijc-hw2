@@ -44,7 +44,7 @@ bool htab_erase(htab_t* t, htab_key_t key) {
     }
 
     // Update hash table size
-    if (htab_size(t) / htab_bucket_count(t) < AVG_LEN_MIN) {
+    if (htab_size(t) / (double)htab_bucket_count(t) < AVG_LEN_MIN) {
         htab_resize(t, htab_bucket_count(t) / 2);
     }
 

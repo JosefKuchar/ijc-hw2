@@ -57,7 +57,7 @@ htab_pair_t* htab_lookup_add(htab_t* t, htab_key_t key) {
     t->size++;
 
     // Update hash table size
-    if (htab_size(t) / htab_bucket_count(t) > AVG_LEN_MAX) {
+    if (htab_size(t) / (double)htab_bucket_count(t) > AVG_LEN_MAX) {
         htab_resize(t, htab_bucket_count(t) * 2);
     }
 
